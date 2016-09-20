@@ -36,19 +36,24 @@ class NewVisitorTest(unittest.TestCase):
 
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == '1: Teach Link Awesome New Orcarina Song' for row in rows),
-            "New to-do item did not appear in table"
-        )
+        self.assertIn('1: Teach Link Awesome New Orcarina Song', [row.text for row in rows])
+
         #There is still a text box for adding an additional item to the list
         #She enters "Check out decrepit Forest Temple"
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('Check out decrepit Forest Temple')
+        inputbox.send_keys(Keys.ENTER)
+
+        #The page updates again showing both items
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_element_by_tag_name('tr')
+        self.assertIn('1: Teach Link Awesome New Orcarina Song', [row.text for row in rows])
+        self.assertIn('2: Check out decrepit Forest Temple', [row.text for row in rows])
+
+        #Saria is curious if she can come back later to add to the list after 
+        #she figures out what is going on in the forest temple -- she notices
+        #that the site created a unique url for her list and informs her of this
         self.fail('Finish the test!')
-
-#The page updates again showing both items
-
-#Saria is curious if she can come back later to add to the list after 
-#she figures out what is going on in the forest temple -- she notices
-#that the site created a unique url for her list and informs her of this
 
 #She visits the url in a private window -- it's still there!
 
