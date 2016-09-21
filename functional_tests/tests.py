@@ -65,11 +65,11 @@ class NewVisitorTest(LiveServerTestCase):
         #Nabooru visits the home page. There is no sign of Saria's list
         self.browser.get(self.live_server_url)
         page_text = self.browser.find_element_by_tag_name('body').text
-        self.assertNotIn('Teach Link Awesome New Orcarina Song')
-        self.assertNotIn('Check out decrepit Forest Temple')
+        self.assertNotIn('Teach Link Awesome New Orcarina Song', page_text)
+        self.assertNotIn('Check out decrepit Forest Temple', page_text)
 
         #Nabooru starts a new list by entering a new item.
-        inputbox = self.browser.find_element_by_id('id_new_name')
+        inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Steal Silver Gauntlets from Spirit Temple')
         inputbox.send_keys(Keys.ENTER)
 
